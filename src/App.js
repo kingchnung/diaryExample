@@ -15,12 +15,12 @@ function App() {
         <Route path='/diary/:id' element={<Diary />} />
         <Route path='/edit' element={<Edit />} />
       </Routes>
-      <div>
+      {/* <div>
         <Link to={'/'}>Home</Link>
         <Link to={'/new'}>새 일기</Link>
         <Link to={'/diary'}>읽기</Link>
         <Link to={'/edit'}>수정/삭제</Link>
-      </div>
+      </div> */}
     </div>
   );
 }
