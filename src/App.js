@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Home from './pages/Home';
+import New from './pages/New';
+import Diary from './pages/Diary'
+import Edit from './pages/Edit';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/*src= {'emtion1, 2, 3, 4, 5의 경로값'} */}
+      {/* <img src={getEmotionImgById(1)} alt='붸뤼 긋' />  
+      <img src={getEmotionImgById(2)} alt='긋' />
+      <img src={getEmotionImgById(3)} alt='쏘쏘' />
+      <img src={getEmotionImgById(4)} alt='배드' />
+      <img src={getEmotionImgById(5)} alt='디스거스팅' /> */}
+
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/new' element={<New />} />
+        <Route path='/diary' element={<Diary />} />
+        <Route path='/edit' element={<Edit />} />
+      </Routes>
     </div>
   );
 }
