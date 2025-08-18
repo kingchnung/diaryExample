@@ -1,8 +1,15 @@
-const Home = () => {
+import { useParams } from "react-router-dom";
+
+const Diary = () => {
+    const { id } = useParams();
+    console.log({id});
 
     return (
-        <div>Home 페이지</div>
+        <div>
+            <div>{id}번 일기</div>
+            <div>Diary 페이지</div>
+        </div>
     )
 }
 
-export default Home;
+export default Diary;
