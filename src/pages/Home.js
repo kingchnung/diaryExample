@@ -1,30 +1,47 @@
-import { useSearchParams } from "react-router-dom";
+
+import { DiaryStateContext } from "../App";
 import Button from "../component/Button";
 import Header from "../component/Header";
-import Editor from "../component/Editor";
+import { useContext, useEffect, useState } from "react";
+import { getMonthRangeByDate } from "../util";
+import DiaryList from "../component/DiaryList";
 
 const Home = () => {
-    // const [searchParams, setSearchParams] = useSearchParams();
-    // console.log(searchParams.get("sort"));
+    const data = useContext(DiaryStateContext);
+    const [filteredData, setFilteredData] = useState([]);
+    const [pivotDate, setPivotDate] = useState(new Date());
+    const headerTitle = `${pivotDate.getFullYear()}년 ${pivotDate.getMonth() + 1}월`;
+
+    useEffect(() => {
+        if(data.length >= 1) {
+            const {beginTimeStamp, endTimeStamp} = getMonthRangeByDate(pivotDate);
+            setFilteredData(
+                data.filter(
+                    (it) => beginTimeStamp <= it.date && it.date <= endTimeStamp
+                )
+            );
+        } else {
+            setFilteredData([]);
+        }
+    }, [data, pivotDate]);
+
+    const onIncreaseMonth = () => {
+        setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth() + 1));
+    };
+
+    const onDecreaseMonth = () => {
+        setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth() - 1));
+    };
 
 
     return (
         <div>
-            {/* <Header title={"Home"} leftChild={
-                <Button type="positive" text={"긍정 버튼"} onClick={() => {
-                    alert("positive 버튼");
-                }} />
-            }
+            <Header title={headerTitle}
+                leftChild={<Button text={"<"} onClick={onDecreaseMonth} />}
+                rightChild={<Button text={">"} onClick={onIncreaseMonth} />}
+            />
 
-            rightChild={
-                <Button type="negative" text={"부정 버튼"} onClick={() => {
-                    alert("negative 버튼");
-                }} />
-            }
-            /> */}
-            <Editor onSubmit={() => {
-                alert("작성 완료 버튼 클릭");
-            }} />
+            <DiaryList data={filteredData} />
         </div>
     )
 }

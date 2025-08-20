@@ -31,3 +31,49 @@ export const getFormattedData = (targetDate) => {
 
     return `${year}-${month}-${date}`;
 }
+
+export const emotionList = [
+    {
+        id:1,
+        name:"붸리긋",
+        img:getEmotionImgById(1),
+    },
+    {
+        id:2,
+        name:"긋",
+        img:getEmotionImgById(2),
+    },
+    {
+        id:3,
+        name:"쏘쏘",
+        img:getEmotionImgById(3),
+    },
+    {
+        id:4,
+        name:"배드",
+        img:getEmotionImgById(4),
+    },
+    {
+        id:5,
+        name:"썩",
+        img:getEmotionImgById(5),
+    },
+]
+
+export const getMonthRangeByDate = (date) => {
+    const beginTimeStamp = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        1
+    ).getTime();
+    const endTimeStamp = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0,
+        23,
+        59,
+        59
+    ).getTime();
+
+    return {beginTimeStamp, endTimeStamp};
+};
