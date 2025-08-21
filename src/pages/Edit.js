@@ -10,16 +10,24 @@ const Edit = () => {
     const { id } = useParams();
     const data = useDiary(id);
     const navigate = useNavigate();
-    const {onDelete, onUpdate} = useContext(DiaryDispatchContext);
+    const { onDelete, onUpdate } = useContext(DiaryDispatchContext);
 
     const goBack = () => {
         navigate(-1);
     }
 
     const onClickDelete = () => {
-        if(window.confirm("삭제 할래말래? 할래말래? 할래말래?\n복구 안되서 애매하긴해!")) {
+        if (window.confirm("삭제 할래말래? 할래말래? 할래말래?\n복구 안되서 애매하긴해!")) {
             onDelete(id);
-            navigate("/", {replace:true});
+            navigate("/", { replace: true });
+        }
+    };
+
+    const onSubmit = (data) => {
+        if (window.confirm("수정 할래말래? 할래말래? 할래말래?")) {
+            const {date, content, emotionId} = data;
+            onDelete(id, date, content, emotionId);
+            navigate("/", { replace: true });
         }
     };
 
@@ -29,13 +37,13 @@ const Edit = () => {
         return (
             <div>
                 <section>
-                <Header title={"일기 수정하기"}
-                leftChild={<Button text={"< 뒤로 가기"} onClick={goBack} />}
-                rightChild={<Button type={"negative"} text={"삭제하기"} onClick={onClickDelete}/>}
-                />
+                    <Header title={"일기 수정하기"}
+                        leftChild={<Button text={"< 뒤로 가기"} onClick={goBack} />}
+                        rightChild={<Button type={"negative"} text={"삭제하기"} onClick={onClickDelete} />}
+                    />
                 </section>
                 <section>
-                    <Editor></Editor>
+                    <Editor initData={data} onSubmit={onSubmit}></Editor>
                 </section>
             </div>
         )
